@@ -55,11 +55,11 @@
   *-----------------------------------------------------------------------------
   *        APB1 Prescaler                         | 2
   *-----------------------------------------------------------------------------
-  *        HSE Frequency(Hz)                      | 8000000
+  *        HSE Frequency(Hz)                      | 16000000
   *----------------------------------------------------------------------------
   *        PLLMUL                                 | 9
   *-----------------------------------------------------------------------------
-  *        PREDIV                                 | 1
+  *        PREDIV                                 | 2
   *-----------------------------------------------------------------------------
   *        I2S input clock(Hz)                    | 72000000
   *                                               |
@@ -346,7 +346,9 @@ static void SetSysClock(void)
 
     /* PLL configuration */
     RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLMULL));
-    RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1 | RCC_CFGR_PLLXTPRE_PREDIV1 | RCC_CFGR_PLLMULL9);
+    RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1 | RCC_CFGR_PLLMULL9);
+    RCC->CFGR2 &= (uint32_t)((uint32_t)~(RCC_CFGR2_PREDIV1));
+    RCC->CFGR2 |= (uint32_t)(RCC_CFGR2_PREDIV1_DIV2);
 
     /* Enable PLL */
     RCC->CR |= RCC_CR_PLLON;
